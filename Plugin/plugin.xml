@@ -1,0 +1,13 @@
+</plugin>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-screen-time" version="1.0">
+    <name>ScreenTimePlugin</name>
+    <platform name="ios">
+        <js-module src="www/screenTimePlugin.js" name="ScreenTimePlugin">
+            <clobbers target="ScreenTimePlugin" />
+        </js-module>
+        <source-file src="src/ios/AppDelegate.swift" />
+        <framework src="DeviceActivity" />
+        <framework src="ManagedSettings" />
+        <!-- Include other frameworks as needed -->
+    </platform>
+</plugin>
