@@ -1,28 +1,30 @@
-class AppDelegate: NSObject, UIApplicationDelegate {
+import Foundation
+import UIKit
+import MobileCoreServices
+import ManagedSettings
+import DeviceActivity
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+
+@objc(ScreenTimePlugin) class ScreenTimePlugin: CDVPlugin {
+    @objc(startMonitoring:)
+    func startMonitoring(command: CDVInvokedUrlCommand) {
         AuthorizationCenter.shared.requestAuthorization { result in
+            var pluginResult: CDVPluginResult
             switch result {
             case .success:
-                print("Success")
+                // Success case: log and send a success result back to Cordova
+                print("Authorization successful")
+                pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Authorization successful")
             case .failure(let error):
-                print("error for screentime is \(error)")
+                // Failure case: log error and send an error result back to Cordova
+                print("Authorization failed with error: \(error)")
+                pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Authorization failed: \(error)")
             }
+            self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
         }
-
-        _ = AuthorizationCenter.shared.$authorizationStatus
-            .sink() {_ in
-            switch AuthorizationCenter.shared.authorizationStatus {
-            case .notDetermined:
-                print("not determined")
-            case .denied:
-                print("denied")
-            case .approved:
-                print("approved")
-            @unknown default:
-                break
-            }
-        }
-        return true
+        
+        // Observing authorization status changes, if necessary, can be complex in a Cordova plugin context.
+        // This often requires a more persistent observation mechanism or event dispatching to JavaScript.
+        // For simplicity, this initial integration focuses on the direct request/response cycle.
     }
 }
