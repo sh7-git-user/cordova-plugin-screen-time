@@ -1,0 +1,22 @@
+{
+    "name": "cordova-plugin-screen-time",
+    "version": "0.0.1",
+    "description": "An IOS Cordova plugin gets access to screen time capability",
+    "cordova": {
+      "id": "@cordova-plugin-screen-time",
+      "platforms": [
+        "ios"
+      ]
+    },
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/sh7-git-user/cordova-plugin-screen-time.git"
+    },
+    "keywords": [
+      "screentimeapi",
+      "cordovascreentime",
+      "cordova-ios"
+    ],
+    "author": "Shradha Nair",
+    "license": "MIT"
+  }
